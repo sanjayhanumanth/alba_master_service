@@ -1,0 +1,64 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: alba-master-service
+
+  datasource:
+    url: jdbc:sqlserver://;serverName=alba-oils-dev-mssql.coherent.in;port=1434;databaseName=business;encrypt=true;trustServerCertificate=true
+    username: sa
+    password: RYljgkhvcO54
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      max-lifetime: 1800000
+      idle-timeout: 600000
+      connection-timeout: 30000
+      keepalive-time: 300000
+      auto-commit: false
+      data-source-properties:
+        currentSchema: business
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        default_schema: business
+        format_sql: false
+        default_batch_fetch_size: 100
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+security:
+  jwt:
+    secret: "alba-oil-loadout-IQFdHmnfJ6KhD8fJesxw-rP8-L4-MjaKL1LuA1pq-G0="
+    expiration: 12h
+    refresh-expiry: 24h
+
+master:
+  service:
+    url: http://localhost:8082
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.lds.master: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: INFO
