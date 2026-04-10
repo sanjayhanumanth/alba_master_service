@@ -11,8 +11,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git branch: 'dev',
-                url: 'https://your-repo-url.git'
+                checkout scm
             }
         }
 
